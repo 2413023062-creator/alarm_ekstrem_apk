@@ -25,11 +25,21 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Fix Gradle Memory
+        run: |
+          mkdir -p android
+          echo "org.gradle.jvmargs=-Xmx4G -Dorg.gradle.daemon=false -XX:MaxMetaspaceSize=1g" > android/gradle.properties
+
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Patch Telephony Namespace
+        run: |
+          sed -i '/android {/a namespace "com.shounakmulay.telephony"' ~/.pub-cache/hosted/pub.dev/telephony-0.2.0/android/build.gradle || true
+
       - name: Build Android APK
-        run: flutter build apk --release --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} --android-skip-build-dependency-validation
+        run: flutter build apk --release --no-tree-shake-icons --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} --android-skip-build-dependency-validation
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
