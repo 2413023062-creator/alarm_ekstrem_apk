@@ -1,0 +1,41 @@
+name: alarm_ekstrem
+description: "Aplikasi Alarm Anti-Kesiangan Ekstrem dengan Misi Matematika, Scan Wajah Mata Terbuka, dan SMS Darurat"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Alarm & Audio Engine
+  alarm: ^5.0.0
+  audioplayers: ^6.1.0
+
+  # Kamera & ML Kit Vision
+  camera: ^0.11.0+2
+  google_mlkit_face_detection: ^0.13.0
+  screen_brightness: ^2.0.0
+
+  # Komunikasi & Identitas
+  telephony: ^0.2.0
+  uuid: ^4.5.1
+  shared_preferences: ^2.3.3
+  intl: ^0.19.0
+  connectivity_plus: ^6.1.0
+
+  # Database Supabase
+  supabase_flutter: ^2.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/sounds/
