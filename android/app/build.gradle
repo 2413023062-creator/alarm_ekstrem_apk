@@ -54,3 +54,14 @@ android {
 flutter {
     source '../..'
 }
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+} 
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "app-release.apk"
+    }
+}
+
